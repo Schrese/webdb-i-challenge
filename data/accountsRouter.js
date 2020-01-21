@@ -33,4 +33,17 @@ router.post('/', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const changes = req.body;
+    knex('accounts').where({id: id}).update(changes)
+        .then(account => {
+            res.status(200).json({ message: 'Account updated' })
+        })
+        .catch(err => {
+            console.log('error updating account', err)
+            res.status(500).json({ errorMessage: 'Error updating the account' })
+        })
+})
+
 module.exports = router;
