@@ -46,4 +46,15 @@ router.put('/:id', (req, res) => {
         })
 })
 
+router.delete('/:id', (req, res) => {
+    knex('accounts').where({ id: req.params.id}).del()
+        .then(act => {
+            res.status(200).json({ message: 'Account deleted' })
+        })
+        .catch(err => {
+            console.log('error deleting account', err)
+            res.status(500).json({ errorMessage: 'Error deleting the account' })
+        })
+})
+
 module.exports = router;
